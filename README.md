@@ -4,6 +4,11 @@ The **Revised Northern Food Basket (RNFB) Price Predictor** is a data analysis a
 
 ![Visual Prototype](visual_prototype.png)
 
+## Project Background
+This repository serves as the open-source implementation for a project developed within the **[STEM Fellowship High School Big Data Challenge (HSBDC)](https://www.stemfellowship.org/programs/hsbdc)**.
+
+For a comprehensive walkthrough of the project's methodology and impact, please view the **[Full Project Introduction Video](https://youtu.be/1OjZ4a4el2Q)**.
+
 ## Project Structure
 
 ### 1. Model Training & Analysis: `rolling_window.py`
