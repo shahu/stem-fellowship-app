@@ -2,8 +2,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
-df_all_data = pd.read_csv("/Users/shahu/PycharmProjects/stem-fellowship-app/all_samples_clean_final.csv")
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, "all_samples_clean_final.csv")
+
+df_all_data = pd.read_csv(csv_path)
 print(df_all_data.head())
 
 df_all_data['REF_DATE_DT'] = pd.to_datetime(df_all_data['REF_DATE_DT'].astype(str), format='%Y%m')
@@ -59,7 +64,7 @@ axes[1].grid(axis='x', linestyle='--', alpha=0.7)
 
 plt.tight_layout()
 #plt.show()
-fig.savefig('/Users/shahu/PycharmProjects/stem-fellowship-app/correlation_analysis.png', dpi=300, bbox_inches='tight')
+fig.savefig('correlation_analysis.png', dpi=300, bbox_inches='tight')
 
 print("Top 20 Most Correlated Features with RNFB (Pearson Correlation):")
 print(top_20_features_pearson)
@@ -169,12 +174,12 @@ for i in range(window_size, len(df_all_data) - 3): # changed to len(df_all_data)
     test_r2_scores.append(r2_score(y_test, hybrid_pred_test))
 
 # Save the models from the last window
-joblib.dump(lr_model, '/Users/shahu/PycharmProjects/stem-fellowship-app/lr_model.pkl')
-joblib.dump(rf_model, '/Users/shahu/PycharmProjects/stem-fellowship-app/rf_model.pkl')
+joblib.dump(lr_model, 'lr_model.pkl')
+joblib.dump(rf_model, 'rf_model.pkl')
 
 print("\n--- Final Models Saved ---")
-print(f"Linear Regression model saved to: /Users/shahu/PycharmProjects/stem-fellowship-app/lr_model.pkl")
-print(f"Random Forest model saved to: /Users/shahu/PycharmProjects/stem-fellowship-app/rf_model.pkl")
+print(f"Linear Regression model saved to: lr_model.pkl")
+print(f"Random Forest model saved to: rf_model.pkl")
 
 print("\n--- Linear Regression Parameters ---")
 print(f"Coefficients: {lr_model.coef_}")
@@ -219,7 +224,7 @@ results_df = pd.DataFrame({
 
 # Set 'Date' as index for plotting
 results_df.set_index('Date', inplace=True)
-results_df.to_csv('/Users/shahu/PycharmProjects/stem-fellowship-app/actual_vs_hybrid_predicted_rnfb.csv')
+results_df.to_csv('actual_vs_hybrid_predicted_rnfb.csv')
 
 # Plot the results
 plt.figure(figsize=(15, 7))
@@ -233,7 +238,7 @@ plt.tight_layout()
 #plt.show()
 
 # save the plot
-plt.savefig('/Users/shahu/PycharmProjects/stem-fellowship-app/actual_vs_hybrid_predicted_rnfb.png', dpi=300, bbox_inches='tight')
+plt.savefig('actual_vs_hybrid_predicted_rnfb.png', dpi=300, bbox_inches='tight')
 
 # Conclude by summarizing the performance
 # Calculate evaluation metrics if needed, for a more quantitative summary
