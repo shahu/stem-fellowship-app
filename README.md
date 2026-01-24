@@ -17,7 +17,7 @@ This script handles the data processing, feature selection, and model training p
 *   **Data Processing**: Loads cleaned data (`all_samples_clean_final.csv`), handles date indexing, and prepares target (`RNFB_w/out`) and feature variables.
 *   **Feature Selection**:
     *   Calculates **Pearson** and **Spearman** correlations to identify top drivers.
-    *   Uses **Permutation Importance** within the training loop to dynamically select the top 10 most relevant features for the Random Forest residual model.
+    *   Uses **Permutation Importance** within the training loop to select the top 10 most relevant features for the Random Forest residual model.
 *   **Hybrid Modeling Approach**:
     *   **Level 1 (Linear)**: A `LinearRegression` model captures the base trend using `CPI_lag_1m`.
     *   **Level 2 (Non-Linear)**: A `RandomForestRegressor` trains on the *residuals* (errors) of the linear model to capture complex, non-linear patterns.
