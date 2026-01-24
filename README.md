@@ -65,8 +65,7 @@ This is the user-facing application built with **Plotly Dash** and styled with *
 ## Key Features
 *   **Hybrid Forecasting**: Combines interpretability (Linear) with accuracy (Random Forest).
 *   **Dynamic Scenario Planning**: "What-if" analysis for logistical and economic factors.
-*   **Deployment Ready**: Git infrastructure initialized for version control and collaboration.
-
+*   **Winter Road Stress Index (WRSI)**: Measures the strength of essential ice roads for transportation during each winter season.
 ## Current Status
 > [!NOTE]
 > **Work in Progress**: The **Hybrid Forecasting** logic is currently utilizing static mock data for demonstration purposes. Full dynamic integration with the trained models is in active development.
