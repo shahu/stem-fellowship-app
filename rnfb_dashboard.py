@@ -9,7 +9,7 @@ import model_load
 import io
 import os
 
-# --- Global Models ---
+# Global Models 
 LR_MODEL = None
 RF_MODEL = None
 LR_INFO = ""
@@ -19,7 +19,7 @@ RF_INFO = ""
 app = dash.Dash(__name__, external_scripts=[{'src': 'https://cdn.tailwindcss.com'}])
 app.title = "RNFB Price Predictor"
 
-# --- Constants & Data ---
+# Constants & Data 
 RAW_CSV_DATA = """Date,Actual RNFB,Hybrid Predicted RNFB
 2013-01-01,401.55,395.20
 2013-04-01,393.57,399.16
@@ -122,8 +122,8 @@ MONTHS = [
 ]
 YEARS = [2022, 2023, 2024, 2025, 2026, 2027]
 
-# --- Icons (SVG) ---
-# --- Icons (SVG) ---
+# Icons (SVG)
+# Icons (SVG) 
 import base64
 
 # Tailwind Color Map for SVG Fill/Stroke substitution
@@ -146,7 +146,7 @@ def icon_wrapper(content, size=16, className=""):
     
     # 1. Determine Color
     # Simple extraction of known color classes
-    color = "#475569" # slate-600 default
+    color = "#475569" 
     
     # Check for specific text colors in className
     parts = className.split(' ')
@@ -243,7 +243,7 @@ def icon_target(size=12, className=""):
     )
 
 
-# --- Components ---
+# Components
 
 def input_field(id_name, label, value, type="number", step=None, min=None, max=None):
     return html.Div([
