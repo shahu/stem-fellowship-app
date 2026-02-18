@@ -15,7 +15,7 @@ df_all_data['REF_DATE_DT'] = pd.to_datetime(df_all_data['REF_DATE_DT'].astype(st
 df_all_data = df_all_data.set_index('REF_DATE_DT')
 
 y = df_all_data['RNFB_w/out']
-X_linear = df_all_data[['CPI_lag_1m']]
+X_linear = df_all_data[['CPI_lag_1m','CPI no adjusted']]
 
 rf_exclude_cols = ['RNFB_w/out', 'RNFB_intp', 'CPI no adjusted','CPI_change_rate',
                    'diesel_price','jet_price','LE Price', 'GF Price','ZW Price','DC Price',
@@ -64,7 +64,7 @@ axes[1].grid(axis='x', linestyle='--', alpha=0.7)
 
 plt.tight_layout()
 #plt.show()
-fig.savefig('correlation_analysis.png', dpi=300, bbox_inches='tight')
+fig.savefig(os.path.join(script_dir, 'correlation_analysis.png'), dpi=300, bbox_inches='tight')
 
 print("Top 20 Most Correlated Features with RNFB (Pearson Correlation):")
 print(top_20_features_pearson)
@@ -174,12 +174,14 @@ for i in range(window_size, len(df_all_data) - 3): # changed to len(df_all_data)
     test_r2_scores.append(r2_score(y_test, hybrid_pred_test))
 
 # Save the models from the last window
-joblib.dump(lr_model, 'lr_model.pkl')
-joblib.dump(rf_model, 'rf_model.pkl')
+lr_save_path = os.path.join(script_dir, 'lr_model.pkl')
+rf_save_path = os.path.join(script_dir, 'rf_model.pkl')
+joblib.dump(lr_model, lr_save_path)
+joblib.dump(rf_model, rf_save_path)
 
 print("\n--- Final Models Saved ---")
-print(f"Linear Regression model saved to: lr_model.pkl")
-print(f"Random Forest model saved to: rf_model.pkl")
+print(f"Linear Regression model saved to: {lr_save_path}")
+print(f"Random Forest model saved to: {rf_save_path}")
 
 print("\n--- Linear Regression Parameters ---")
 print(f"Coefficients: {lr_model.coef_}")
@@ -224,7 +226,7 @@ results_df = pd.DataFrame({
 
 # Set 'Date' as index for plotting
 results_df.set_index('Date', inplace=True)
-results_df.to_csv('actual_vs_hybrid_predicted_rnfb.csv')
+results_df.to_csv(os.path.join(script_dir, 'actual_vs_hybrid_predicted_rnfb.csv'))
 
 # Plot the results
 plt.figure(figsize=(15, 7))
@@ -238,7 +240,7 @@ plt.tight_layout()
 #plt.show()
 
 # save the plot
-plt.savefig('actual_vs_hybrid_predicted_rnfb.png', dpi=300, bbox_inches='tight')
+plt.savefig(os.path.join(script_dir, 'actual_vs_hybrid_predicted_rnfb.png'), dpi=300, bbox_inches='tight')
 
 # Conclude by summarizing the performance
 # Calculate evaluation metrics if needed, for a more quantitative summary

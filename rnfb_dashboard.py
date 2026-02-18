@@ -15,6 +15,49 @@ RF_MODEL = None
 LR_INFO = ""
 RF_INFO = ""
 
+# --- Auto-load models at startup ---
+STARTUP_LOG_LINES = []
+
+def _auto_load_models():
+    global LR_MODEL, RF_MODEL, LR_INFO, RF_INFO
+    STARTUP_LOG_LINES.append(f"=== Dashboard Startup [{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ===")
+    STARTUP_LOG_LINES.append("Auto-loading models from local directory...\n")
+
+    # Load LR model
+    STARTUP_LOG_LINES.append(f"[LR] Searching: {model_load.LR_MODEL_PATH}")
+    try:
+        lr_model, lr_info = model_load.load_lr_model()
+        if lr_model:
+            LR_MODEL = lr_model
+            LR_INFO = lr_info
+            STARTUP_LOG_LINES.append(f"[LR] ✅ Loaded successfully")
+            STARTUP_LOG_LINES.append(lr_info)
+        else:
+            STARTUP_LOG_LINES.append(f"[LR] ❌ Failed: {lr_info}")
+    except Exception as e:
+        STARTUP_LOG_LINES.append(f"[LR] ❌ Error: {str(e)}")
+
+    STARTUP_LOG_LINES.append("")  # blank line separator
+
+    # Load RF model
+    STARTUP_LOG_LINES.append(f"[RF] Searching: {model_load.RF_MODEL_PATH}")
+    try:
+        rf_model, rf_info = model_load.load_rd_model()
+        if rf_model:
+            RF_MODEL = rf_model
+            RF_INFO = rf_info
+            STARTUP_LOG_LINES.append(f"[RF] ✅ Loaded successfully")
+            STARTUP_LOG_LINES.append(rf_info)
+        else:
+            STARTUP_LOG_LINES.append(f"[RF] ❌ Failed: {rf_info}")
+    except Exception as e:
+        STARTUP_LOG_LINES.append(f"[RF] ❌ Error: {str(e)}")
+
+    STARTUP_LOG_LINES.append("\n=== Auto-load Complete ===")
+
+_auto_load_models()
+STARTUP_LOG = "\n".join(STARTUP_LOG_LINES)
+
 # Initialize the Dash app
 app = dash.Dash(__name__, external_scripts=[{'src': 'https://cdn.tailwindcss.com'}])
 app.title = "RNFB Price Predictor"
@@ -492,7 +535,7 @@ app.layout = html.Div(className="min-h-screen bg-slate-50 text-slate-800 font-sa
             html.H3("System Debug Log", className="font-bold text-slate-800 flex items-center gap-2"),
             html.Button("x", id="close-sidebar", className="text-slate-500 hover:text-slate-700 font-bold")
         ]),
-        html.Div(className="p-4 flex-1 overflow-y-auto font-mono text-xs text-slate-600 whitespace-pre-wrap", id='debug-log-content', children="No models loaded.")
+        html.Div(className="p-4 flex-1 overflow-y-auto font-mono text-xs text-slate-600 whitespace-pre-wrap", id='debug-log-content', children=STARTUP_LOG)
     ]),
 
     # Store for sidebar state
