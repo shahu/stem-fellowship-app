@@ -15,7 +15,7 @@ df_all_data['REF_DATE_DT'] = pd.to_datetime(df_all_data['REF_DATE_DT'].astype(st
 df_all_data = df_all_data.set_index('REF_DATE_DT')
 
 y = df_all_data['RNFB_w/out']
-X_linear = df_all_data[['CPI_lag_1m','CPI no adjusted']]
+X_linear = df_all_data[['CPI_lag_1m','currency_rate']]
 
 rf_exclude_cols = ['RNFB_w/out', 'RNFB_intp', 'CPI no adjusted','CPI_change_rate',
                    'diesel_price','jet_price','LE Price', 'GF Price','ZW Price','DC Price',
