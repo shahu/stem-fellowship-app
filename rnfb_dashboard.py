@@ -1219,4 +1219,4 @@ def update_chart(n_clicks, month, year, crisis_mode_val,
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

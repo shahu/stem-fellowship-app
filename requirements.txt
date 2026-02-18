@@ -1,0 +1,16 @@
+# RNFB Price Predictor Dashboard - Dependencies
+# Python 3.12+
+
+# --- Web Framework ---
+dash==3.4.0
+plotly==6.5.2
+
+# --- Data & ML ---
+pandas==2.3.3
+numpy==2.2.6
+scikit-learn==1.8.0
+joblib==1.5.3
+
+# --- Visualization (for rolling_window.py training scripts) ---
+matplotlib==3.10.8
+seaborn==0.13.2
